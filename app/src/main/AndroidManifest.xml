@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/ic"
+        android:label="骑 士 公 益 内 核 @ 乐 鹏"
+        android:roundIcon="@drawable/ic"
+        android:supportsRtl="true"
+        android:theme="@style/MyCustomTheme"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="骑士内核启动器 [主程序]"
+            android:theme="@style/MyCustomTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".kernel_dev_select"
+            android:exported="true"
+            android:label="[SU] 刷入内核"
+            android:icon="@drawable/ic_b_f"
+            android:theme="@style/MyCustomTheme">
+
+        </activity>
+        <activity
+            android:name=".fastbotMGR"
+            android:exported="true"
+            android:icon="@drawable/ic_r_f"
+            android:label="[SU] 快速启动(qx11+无后台+防录屏)"
+            android:theme="@style/MyCustomTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".update"
+            android:exported="true"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:label="检查辅助更新"
+            android:theme="@style/MyCustomTheme">
+
+        </activity>
+    </application>
+
+</manifest>
