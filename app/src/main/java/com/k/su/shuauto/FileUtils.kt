@@ -38,6 +38,7 @@ object FileUtils {
     }
 
     // 解压ZIP文件到内部存储目录
+    @JvmStatic
     fun unzipFile(context: Context?, zipFilePath: String?, destPath: String): Boolean {
         val destDir = File(destPath)
         if (!destDir.exists()) {
@@ -79,4 +80,7 @@ object FileUtils {
         }
         bos.close()
     }
+
+
+
 }

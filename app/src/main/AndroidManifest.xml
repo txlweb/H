@@ -50,6 +50,14 @@
             android:theme="@style/MyCustomTheme">
 
         </activity>
+        <activity
+            android:name=".configMGR"
+            android:exported="true"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:label="配置文件下载"
+            android:theme="@style/MyCustomTheme">
+
+        </activity>
     </application>
 
 </manifest>

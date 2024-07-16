@@ -27,7 +27,7 @@ public class Su_runtime {
 
             // 打印输出（或根据需要处理）
             System.out.println("--------------RUNNNNNNNN________________");
-            System.out.println(output.toString());
+            System.out.println(output);
             return output.toString();
 
         } catch (IOException e) {

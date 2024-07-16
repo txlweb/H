@@ -16,12 +16,12 @@ class ktlib {
                     filesDir.toString() + File.separator + "/"+res_name,
                     unzippedFilePath
                 )){
-                return false;
+                return false
             }
         }else{
-            return true;
+            return true
         }
 
-        return false;
+        return false
     }
 }

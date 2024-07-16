@@ -41,7 +41,7 @@ import rikka.shizuku.Shizuku;
 public class kernel_dev_select extends AppCompatActivity {
     private RecyclerView fileListRecyclerView;
     private FileAdapter fileAdapter;
-    private List<FileModel> fileList = new ArrayList<>();
+    private final List<FileModel> fileList = new ArrayList<>();
     public static TextView csl = null;
     public static boolean ku_zy = false;
     public static int select_id = 0;
@@ -94,7 +94,7 @@ public class kernel_dev_select extends AppCompatActivity {
         Button rne = findViewById(R.id.rn);
         csl = findViewById(R.id.sh_do);
         rne.setOnClickListener(View -> {
-            csl.setVisibility(View.VISIBLE);
+            csl.setVisibility(android.view.View.VISIBLE);
             fs a = new fs();
             a.set("sh \""+this.getApplicationContext().getFilesDir().toString()+"/qx/"+fileList.get(select_id).getFileName()+"\"",this);
             a.start();

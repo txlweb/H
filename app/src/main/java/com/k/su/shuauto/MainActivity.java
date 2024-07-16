@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         Button nh = findViewById(R.id.st_nh);
         Button hh = findViewById(R.id.Start_lh);
         Button up = findViewById(R.id.upda);
+        Button dw = findViewById(R.id.dwcf);
         v.setText("版本"+update.readFile(d+"/v.txt")+" 骑士免费内核 @ 乐鹏\r\n启动器 @ k");
         nh.setEnabled(false);
         hh.setEnabled(false);
@@ -255,7 +256,11 @@ public class MainActivity extends AppCompatActivity {
         });
             // 注意：这个命令需要root权限，否则将失败
 
-
+        dw.setOnClickListener(View -> {
+            Intent intent = new Intent();
+            intent.setClass(this, configMGR.class);
+            startActivity(intent);
+        });
         inqx.setOnClickListener(View -> {
             Intent intent = new Intent();
             intent.setClass(this, kernel_dev_select.class);
@@ -290,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        },0,200);
+        },0,1000);
     }
 
     public void openApp(Context context, String packageName, String mainActivity) {

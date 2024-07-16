@@ -63,8 +63,7 @@ dependencies {
     implementation libs.androidx.appcompat
     implementation libs.androidx.recyclerview
     implementation libs.androidx.constraintlayout
-    implementation files('..\\libs\\bcprov-jdk15-143.jar')
-    implementation files('..\\libs\\ManifestEditor-1.0.2.jar')
+
     implementation libs.okhttp
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit

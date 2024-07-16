@@ -1,10 +1,13 @@
 package com.k.su.shuauto;
 
+import static com.k.su.shuauto.MainActivity.run_sh;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.RemoteException;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -36,28 +39,17 @@ public class update extends AppCompatActivity {
         }
         return stringBuilder.toString();
     }
-    public static boolean is_all_new(String tmp){
-        String vu = "https://github.com/txlweb/H/releases/download/1/v.txt";
-        String mv = "240705";
-        dw_file a = new dw_file();
-        a.init(vu,tmp+"/v.txt");
-        return readFile("/data/v.txt").contains(mv);
-    }
-    public static boolean dw_all(String tmp){
-        String vu = "https://github.com/txlweb/H/releases/download/1/ka.sh";
-        String mv = "240705";
-        dw_file a = new dw_file();
-        a.init(vu,tmp+"/ka.data");
-        return readFile("/data/v.txt").contains(mv);
-    }
     String d = "";
     boolean vxd = false;
+    boolean vxe = false;
+    boolean vxc = false;
     static ProgressBar p = null;
     dw_file a = new dw_file();
     dw_file b = new dw_file();
     Timer t = new Timer();
     dw_file c = new dw_file();
-    private Handler mainHandler = new Handler(Looper.getMainLooper());
+    dw_file e = new dw_file();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         d=this.getApplicationContext().getFilesDir().toString();
@@ -73,7 +65,8 @@ public class update extends AppCompatActivity {
                 a.init(vu,d+"/ka.data");
                 a.run();
                 b.init("https://github.com/txlweb/H/releases/download/1/kb.sh",d+"/kb.data");
-                c.init("https://github.com/txlweb/H/releases/download/1/v.txt",d+"/v.txt");
+                c.init("https://github.com/txlweb/H/releases/download/1/base.apk",d+"/base.apk");
+                e.init("https://github.com/txlweb/H/releases/download/1/v.txt",d+"/v.txt");
             }
         }).start();
 
@@ -97,22 +90,43 @@ public class update extends AppCompatActivity {
                             p.setMax(b.getAll());
                             p.setProgress(b.getNow());
                             if(b.is_ok()){
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        c.run();
-                                    }
-                                }).start();
+                                if(!vxc) {
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            c.run();
+                                        }
+                                    }).start();
+                                }
+                                vxc=true;
                                 //
                                 if(c.is_ok()){
-                                    Toast.makeText(update.this, "更新完成,需要重启应用来完成更新.", Toast.LENGTH_SHORT).show();
-                                    t.cancel();
-                                    finish();
+                                    if(!vxe){
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                e.run();
+                                            }
+                                        }).start();
+                                    }
+                                    vxe = true;
+                                    if(e.is_ok()){
+                                        try {
+                                            run_sh("pm install \""+d+"/base.apk\"");
+                                        } catch (RemoteException ex) {
+                                            throw new RuntimeException(ex);
+                                        }
+                                        Toast.makeText(update.this, "更新完成,需要重启应用来完成更新.", Toast.LENGTH_SHORT).show();
+                                        t.cancel();
+                                        finish();
+                                    }
+
+                                }else {
+                                    p.setMax(c.getAll());
+                                    p.setProgress(c.getNow());
                                 }
 
                             }
-                            System.out.println(b.getAll());
-                            System.out.println(b.getNow());
                         }else {
                             p.setMax(a.getAll());
                             p.setProgress(a.getNow());
