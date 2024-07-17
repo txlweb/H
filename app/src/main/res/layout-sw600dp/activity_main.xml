@@ -32,7 +32,6 @@
         android:id="@+id/textView2"
         android:layout_width="239dp"
         android:layout_height="69dp"
-        android:layout_marginStart="65dp"
         android:layout_marginTop="1dp"
         android:text="版本240705 骑士免费内核 @ 乐鹏"
         android:textAlignment="center"
@@ -138,7 +137,6 @@
         android:showText="true"
         android:text="游戏选择"
         android:textAlignment="viewStart"
-        android:textColor="#E91E63"
         android:textOff="和平"
         android:textOn="PUBG"
         android:textSize="20sp"
@@ -160,7 +158,6 @@
         android:showText="true"
         android:text="驱动选择"
         android:textAlignment="viewStart"
-        android:textColor="#E91E63"
         android:textOff="GT"
         android:textOn="QX     "
         android:textSize="20sp"
@@ -182,7 +179,6 @@
         android:showText="true"
         android:text="防录屏"
         android:textAlignment="viewStart"
-        android:textColor="#E91E63"
         android:textOff="关闭  "
         android:textOn="开启"
         android:textSize="20sp"
@@ -193,16 +189,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch3" />
 
-            <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="-1dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/bg" />
+    <!--        <ImageView-->
+<!--            android:id="@+id/imageView4"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:elevation="-1dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@drawable/bg" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,9 +7,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/ic"
+        android:icon="@drawable/ic_b_f"
         android:label="骑 士 公 益 内 核 @ 乐 鹏"
-        android:roundIcon="@drawable/ic"
+        android:roundIcon="@drawable/ic_b_f"
         android:supportsRtl="true"
         android:theme="@style/MyCustomTheme"
         tools:targetApi="31">

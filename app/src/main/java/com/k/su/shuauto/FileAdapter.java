@@ -33,7 +33,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         FileModel file = fileList.get(position);
         holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(),
-                file.equals(highlightedFileModel) ? R.color.purple_200 : R.color.white));
+                file.equals(highlightedFileModel) ? R.color.white : R.color.nocolr));
         holder.fileNameTextView.setText(file.getFileName());
 
 

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top"
+    android:orientation="vertical"
+
+    android:rotationX="0"
+    android:rotationY="0"
+    android:scaleType="centerInside">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="243dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="骑士内核启动器"
+        android:textAlignment="center"
+        android:textColor="#03A9F4"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="242dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="版本240705 骑士免费内核 @ 乐鹏"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#FF9800"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="75dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_b_f" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="310dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:checked="true"
+        android:showText="true"
+        android:text="防录屏"
+        android:textAlignment="viewStart"
+        android:textColor="#E91E63"
+        android:textOff="关闭  "
+        android:textOn="开启"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:thumbTint="#FFFFFF"
+        android:track="@drawable/btn"
+        android:trackTint="#E91E63"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch3" />
+
+    <Switch
+        android:id="@+id/switch3"
+        android:layout_width="311dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:showText="true"
+        android:text="游戏选择"
+        android:textAlignment="viewStart"
+        android:textColor="#E91E63"
+        android:textOff="和平"
+        android:textOn="PUBG"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:thumbTint="#FFFFFF"
+        android:track="@drawable/btn"
+        android:trackTint="#3F51B5"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch2" />
+
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="310dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="132dp"
+        android:checked="true"
+        android:showText="true"
+        android:text="驱动选择"
+        android:textAlignment="viewStart"
+        android:textColor="#E91E63"
+        android:textOff="GT"
+        android:textOn="QX     "
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:thumbTint="#FFFFFF"
+        android:track="@drawable/btn"
+        android:trackTint="#3F51B5"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/st_shsu"
+        android:layout_width="229dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:backgroundTint="@color/teal_700"
+        android:text="获取权限"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="385dp"
+        tools:layout_editor_absoluteY="3dp" />
+
+    <Button
+        android:id="@+id/dwcf"
+        android:layout_width="180dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:backgroundTint="@color/teal_200"
+        android:text="下载牛逼配置"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toEndOf="@+id/upda"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/upda"
+        android:layout_width="180dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="28dp"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:backgroundTint="@color/teal_200"
+        android:text="下载最新辅助"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/QX_kernel"
+        android:layout_width="377dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:backgroundTint="@color/teal_700"
+        android:baselineAligned="false"
+        android:text="安装驱动"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/Start_lh" />
+
+    <Button
+        android:id="@+id/st_nh"
+        android:layout_width="377dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:backgroundTint="#E91E63"
+        android:text="启动辅助(无后台)"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/upda" />
+
+    <Button
+        android:id="@+id/Start_lh"
+        android:layout_width="377dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:backgroundTint="#E91E63"
+        android:text="启动辅助(后台)"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/st_nh" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="756dp"
+        android:layout_height="453dp"
+        android:layout_marginEnd="192dp"
+        android:elevation="-1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bg" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     boolean fn = true;
     Timer t = new Timer();
     private float currentRotation = 0f;
+    int waitweb = 0;
     Process p = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -307,9 +308,9 @@ public class MainActivity extends AppCompatActivity {
             intent.setClass(this, kernel_dev_select.class);
             startActivity(intent);
         });
-
         t.schedule(new TimerTask() {
             public void run() {
+
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -326,6 +327,16 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }else{
                                 Toast.makeText(MainActivity.this, "已经是最新的版本了!", Toast.LENGTH_SHORT).show();
+                                nh.setEnabled(true);
+                                hh.setEnabled(true);
+                                inqx.setEnabled(true);
+                                shsu.setEnabled(false);
+                                t.cancel();
+                            }
+                        }else{
+                            waitweb+=1;
+                            if(waitweb>=10){
+                                Toast.makeText(MainActivity.this, "无法连接到GitHub!请挂梯子或更改网络环境再试!", Toast.LENGTH_SHORT).show();
                                 nh.setEnabled(true);
                                 hh.setEnabled(true);
                                 inqx.setEnabled(true);
@@ -380,6 +391,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         //p.destroyForcibly();
+        mediaPlayer.stop();
+        mediaPlayer.release();
     }
 
 }

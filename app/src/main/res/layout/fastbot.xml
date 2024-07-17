@@ -9,7 +9,7 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic"
+        android:background="@drawable/ic_b_f"
         android:text="一键启动"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="96sp"
