@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -89,6 +90,9 @@ public class update extends AppCompatActivity {
                             }
                             p.setMax(b.getAll());
                             p.setProgress(b.getNow());
+                            if(b.getAll() == new File(d+"/kb.data").length()){
+                                b.stop_dw();
+                            }
                             if(b.is_ok()){
                                 if(!vxc) {
                                     new Thread(new Runnable() {
@@ -124,12 +128,18 @@ public class update extends AppCompatActivity {
                                 }else {
                                     p.setMax(c.getAll());
                                     p.setProgress(c.getNow());
+                                    if(c.getAll() == new File(d+"/base.apk").length()){
+                                        c.stop_dw();
+                                    }
                                 }
 
                             }
                         }else {
                             p.setMax(a.getAll());
                             p.setProgress(a.getNow());
+                            if(a.getAll() == new File(d+"/ka.data").length()){
+                                a.stop_dw();
+                            }
                         }
                     }
                 });

@@ -11,10 +11,17 @@ public class dw_file extends Thread{
     private int all = 0;
     private int now = -1;
     private boolean ok = false;
+    private boolean stop = true;
     public void init(String fileUrl_, String fileName_){
         this.fileUrl =fileUrl_;
         this.fileName=fileName_;
     }
+
+    public void stop_dw() {
+        this.stop = false;
+        this.ok=true;
+    }
+
     public void run(){
         this.ok = false;
         try {
@@ -35,7 +42,7 @@ public class dw_file extends Thread{
                 this.now = 0;
                 byte[] buffer = new byte[1024];
                 int bytesRead;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                while ((bytesRead = inputStream.read(buffer)) != -1 & this.stop) {
                     fileOutputStream.write(buffer, 0, bytesRead);
                     this.now += bytesRead;
                     // 可以在这里添加进度条更新

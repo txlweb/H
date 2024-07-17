@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity; // 导入AppCompatActivity
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -65,8 +67,47 @@ public class MainActivity extends AppCompatActivity {
     Process p = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(!new File(this.getApplicationContext().getFilesDir().toString()+"/readme.lock").isFile()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("授权提示 [ROOT KSU/Magisk]")
+                    .setMessage("当你点击继续后将会尝试获取SU权限,如果发生了闪退,请检查排除列表或尝试关闭SU隐藏并授权给本应用.\n\r\n如果遇到一直更新无法进入请尝试挂梯子,因为更新服务在GitHub上.\r\n By.k")
+                    .setPositiveButton("继续 (SU)", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try {
+                                Process process = Runtime.getRuntime().exec("su");
+                                DataOutputStream os = new DataOutputStream(process.getOutputStream());
+                                os.writeBytes("exit\n");
+                                os.flush();
+                                int exitVal = process.waitFor();
+                                if (exitVal == 0) {
+                                    Toast.makeText(MainActivity.this, "SU权限获取成功!", Toast.LENGTH_SHORT).show();
+                                    ku_zy = false;
+                                } else {
+                                    Toast.makeText(MainActivity.this, "SU权限获取失败!", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                                new File(MainActivity.this.getApplicationContext().getFilesDir().toString()+"/readme.lock").createNewFile();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("退出", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(MainActivity.this, "你没有同意授权SU!", Toast.LENGTH_SHORT).show();
+                            finish();
+                            dialog.dismiss();
+                        }
+                    }); // 如果不需要取消按钮，可以传递null
 
-
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
         d=this.getApplicationContext().getFilesDir().toString();
         new Thread(new Runnable() {
             @Override
@@ -84,24 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         },0,200);
-        try {
-            Process process = Runtime.getRuntime().exec("su");
-            DataOutputStream os = new DataOutputStream(process.getOutputStream());
-            os.writeBytes("exit\n");
-            os.flush();
-            int exitVal = process.waitFor();
-            if (exitVal == 0) {
-                // Toast.makeText(MainActivity.this, "SU权限获取成功!", Toast.LENGTH_SHORT).show();
-                ku_zy = false;
-            } else {
-                Toast.makeText(MainActivity.this, "SU权限获取失败!", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
         //new File(this.getApplicationContext().getFilesDir().toString()+"/kernel.sh").delete();
         new ktlib().unpk(this.getApplicationContext().getFilesDir().toString()+"/qx/","qxdev.zip",this);
 
@@ -326,17 +350,43 @@ public class MainActivity extends AppCompatActivity {
                                     finish();
                                 }
                             }else{
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                builder.setTitle("[EULA] 许可协议 / [UPDATE NOTE] 更新日志")
+                                        .setMessage("本程序不涉及辅助内容,辅助模块由另外的人提供,本程序只作为启动器,当辅助更新时本程序也会随之更新,本程序也会不定期更新自己,相信我们可以为你带来更好的体验!\n APK @ k\n 辅助 @ 乐鹏\n\n" +
+                                                "[240417+1.1]\n 1.修复没有SU时直接闪退问题\n2.修复部分更新逻辑错误\n3.祝大家游戏愉快!")
+                                        .setPositiveButton("同意并继续", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                nh.setEnabled(true);
+                                                hh.setEnabled(true);
+                                                inqx.setEnabled(true);
+                                                shsu.setEnabled(false);
+                                                dialog.dismiss();
+                                            }
+                                        })
+                                        .setNegativeButton("退出", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Toast.makeText(MainActivity.this, "你没有同意EULA!", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                                dialog.dismiss();
+                                            }
+                                        }); // 如果不需要取消按钮，可以传递null
+
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
                                 Toast.makeText(MainActivity.this, "已经是最新的版本了!", Toast.LENGTH_SHORT).show();
-                                nh.setEnabled(true);
-                                hh.setEnabled(true);
-                                inqx.setEnabled(true);
-                                shsu.setEnabled(false);
+
                                 t.cancel();
                             }
                         }else{
                             waitweb+=1;
                             if(waitweb>=10){
-                                Toast.makeText(MainActivity.this, "无法连接到GitHub!请挂梯子或更改网络环境再试!", Toast.LENGTH_SHORT).show();
+                                if(!new File(MainActivity.this.getApplicationContext().getFilesDir().toString()+"/ka.data").isFile()) {
+                                    Toast.makeText(MainActivity.this, "无法检查更新!请挂梯子或更改网络环境再试!(可启动:否)", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                Toast.makeText(MainActivity.this, "无法检查更新!请挂梯子或更改网络环境再试!(可启动:是)", Toast.LENGTH_SHORT).show();
                                 nh.setEnabled(true);
                                 hh.setEnabled(true);
                                 inqx.setEnabled(true);
