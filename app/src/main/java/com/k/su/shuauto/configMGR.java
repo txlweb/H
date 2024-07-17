@@ -48,6 +48,7 @@ public class configMGR  extends AppCompatActivity {
             public void run() {
                 // 执行一些耗时的操作
                 String vu = "https://github.com/txlweb/H/releases/download/1/cfg.zip";
+                new File(d+"/cfg.zip").delete();
                 a.init(vu,d+"/cfg.zip");
                 a.run();
             }

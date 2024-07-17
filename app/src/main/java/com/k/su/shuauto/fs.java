@@ -65,7 +65,7 @@ public class fs extends Thread{
                         csl.setText(output);
                     }
                 });
-                if(output.toString().contains("后重启")){
+                if(output.toString().contains("请重启") || output.toString().contains("后重启")){
                     process.destroyForcibly();
                     kernel_dev_select.mainHandler.post(new Runnable() {
                         @Override

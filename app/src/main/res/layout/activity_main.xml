@@ -25,7 +25,7 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="227dp"
         app:srcCompat="@drawable/ic" />
 
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/dialog_holo_dark_frame"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/teal_200"
         android:text="下载最新辅助"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/dialog_holo_dark_frame"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/teal_200"
         android:text="下载牛逼配置"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/dialog_holo_dark_frame"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/teal_700"
         android:baselineAligned="false"
         android:text="安装驱动" />
 
@@ -70,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/dialog_holo_dark_frame"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="#E91E63"
         android:text="启动辅助(无后台)"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -78,8 +78,10 @@
         android:id="@+id/Start_lh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="启动辅助(创建bash进程)"
-        android:visibility="invisible" />
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:backgroundTint="#E91E63"
+        android:text="启动辅助(后台)"
+        android:visibility="visible" />
 
     <Switch
         android:id="@+id/switch3"

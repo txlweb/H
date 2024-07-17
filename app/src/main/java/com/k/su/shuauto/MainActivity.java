@@ -2,15 +2,21 @@ package com.k.su.shuauto; // 替换为你的包名
 
 import androidx.appcompat.app.AppCompatActivity; // 导入AppCompatActivity
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle; // 导入Bundle用于处理Activity的创建和保存状态
 import android.os.Handler;
 import android.os.Looper;
 import android.os.RemoteException;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +34,7 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
     public static
     Handler mainHandler = new Handler(Looper.getMainLooper());
-
+    MediaPlayer mediaPlayer = new MediaPlayer();
     public static boolean ku_zy = false;
     /**
      * Activity是否在前台
@@ -54,8 +60,12 @@ public class MainActivity extends AppCompatActivity {
     dw_file c = new dw_file();
     boolean fn = true;
     Timer t = new Timer();
+    private float currentRotation = 0f;
+    Process p = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         d=this.getApplicationContext().getFilesDir().toString();
         new Thread(new Runnable() {
             @Override
@@ -93,8 +103,10 @@ public class MainActivity extends AppCompatActivity {
         }
         //new File(this.getApplicationContext().getFilesDir().toString()+"/kernel.sh").delete();
         new ktlib().unpk(this.getApplicationContext().getFilesDir().toString()+"/qx/","qxdev.zip",this);
-        new ktlib().unpk(this.getApplicationContext().getFilesDir().toString()+"/","ka.sh",this);//和平
-        new ktlib().unpk(this.getApplicationContext().getFilesDir().toString()+"/","kb.sh",this);//PUBG
+
+
+        //new ktlib().unpk(this.getApplicationContext().getFilesDir().toString()+"/","ka.sh",this);//和平
+        //new ktlib().unpk(this.getApplicationContext().getFilesDir().toString()+"/","kb.sh",this);//PUBG
         if(new File(this.getApplicationContext().getFilesDir().toString()+"/ka.data").isFile()){
             try {
                 new File(this.getApplicationContext().getFilesDir().toString()+"/ka.sh").delete();
@@ -125,6 +137,39 @@ public class MainActivity extends AppCompatActivity {
         Button up = findViewById(R.id.upda);
         Button dw = findViewById(R.id.dwcf);
         v.setText("版本"+update.readFile(d+"/v.txt")+" 骑士免费内核 @ 乐鹏\r\n启动器 @ k");
+        try {
+            mediaPlayer.setDataSource(getApplicationContext(), Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.sound));
+            mediaPlayer.setLooping(true);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        ImageView imageView = findViewById(R.id.imageView);
+        currentRotation += 360f;
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(imageView, "rotation", currentRotation);
+        animator1.setDuration(2000); // 设置动画持续时间，例如1000毫秒（1秒）
+        animator1.setInterpolator(new LinearInterpolator()); // 设置插值器，这里使用线性插值器
+        animator1.start(); // 启动动画
+        animator1.setRepeatCount(ValueAnimator.INFINITE);
+        imageView.setOnClickListener(View->{
+                currentRotation += 90f;
+                ObjectAnimator animator = ObjectAnimator.ofFloat(imageView, "rotation", currentRotation);
+                animator.setDuration(2000); // 设置动画持续时间，例如1000毫秒（1秒）
+                animator.setInterpolator(new LinearInterpolator()); // 设置插值器，这里使用线性插值器
+                animator.start(); // 启动动画
+                animator.setRepeatCount(ValueAnimator.INFINITE);
+            try {
+                if(mediaPlayer.isPlaying()){
+                    //mediaPlayer.stop();
+                }else{
+                    //mediaPlayer.prepare();
+                    //mediaPlayer.start();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         nh.setEnabled(false);
         hh.setEnabled(false);
         inqx.setEnabled(false);
@@ -169,26 +214,28 @@ public class MainActivity extends AppCompatActivity {
                     outputStream.write("0\n".getBytes());
                     outputStream.flush(); // 确保数据被发送
                 }
-                // 读取脚本的输出（如果需要的话）
+//                // 读取脚本的输出（如果需要的话）
                 String line;
+                int vv = 0;
                 while ((line = reader.readLine()) != null) {
                     System.out.println("Output: " + line);
+                    if (vv>5) break;
+                    vv++;
                 }
-
-                // 读取脚本的错误输出（如果需要的话）
-                while ((line = errorReader.readLine()) != null) {
-                    System.err.println("Error: " + line);
-                }
+//
+//                // 读取脚本的错误输出（如果需要的话）
+//                while ((line = errorReader.readLine()) != null) {
+//                    System.err.println("Error: " + line);
+//                }
 
                 // 等待脚本执行完成
-                int exitCode = process.waitFor();
-                System.out.println("Script exited with code " + exitCode);
+                //int exitCode = process.waitFor();
+                //process.wait(1000);
+                //System.out.println("Script exited with code " + exitCode);
                 finish();
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
 
@@ -206,12 +253,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 ProcessBuilder processBuilder = new ProcessBuilder("su", "-c","sh" ,"/data/kernel.sh");
                 processBuilder.directory(new java.io.File("/data"));
-                Process process = processBuilder.start();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                p = processBuilder.start();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                BufferedReader errorReader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 
                 // 获取进程的输入流，用于向脚本发送输入
-                OutputStream outputStream = process.getOutputStream();
+                OutputStream outputStream = p.getOutputStream();
                 if(dv.isChecked()){
                     outputStream.write("1\n".getBytes());
                     outputStream.flush(); // 确保数据被发送
@@ -228,20 +275,14 @@ public class MainActivity extends AppCompatActivity {
                     outputStream.write("0\n".getBytes());
                     outputStream.flush(); // 确保数据被发送
                 }
-                // 读取脚本的输出（如果需要的话）
                 String line;
+//                int vv=0;
 //                while ((line = reader.readLine()) != null) {
 //                    System.out.println("Output: " + line);
+//                    if (vv>5) break;
+//                    vv++;
 //                }
-
-                // 读取脚本的错误输出（如果需要的话）
-//                while ((line = errorReader.readLine()) != null) {
-//                    System.err.println("Error: " + line);
-//                }
-
-                // 等待脚本执行完成
-                //int exitCode = process.waitFor();
-                //System.out.println("Script exited with code " + exitCode);
+                //finish();
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
@@ -333,19 +374,12 @@ public class MainActivity extends AppCompatActivity {
             return Su_runtime.executeRootCommand(shell);
         }
     }
-    public static String getKernelVersion() {
 
-        try {
-            System.out.println(run_sh("getprop ro.build.kernel"));
-            return run_sh("getprop ro.build.kernel").trim();
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //p.destroyForcibly();
     }
 
 }

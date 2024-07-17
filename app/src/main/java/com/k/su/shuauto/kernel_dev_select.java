@@ -1,7 +1,6 @@
 package com.k.su.shuauto;
 
 
-import static com.k.su.shuauto.MainActivity.getKernelVersion;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
