@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     Handler mainHandler = new Handler(Looper.getMainLooper());
     MediaPlayer mediaPlayer = new MediaPlayer();
     public static boolean ku_zy = false;
+    boolean su_ok = false;
     /**
      * Activity是否在前台
      * @param context
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                                 os.flush();
                                 int exitVal = process.waitFor();
                                 if (exitVal == 0) {
-                                    Toast.makeText(MainActivity.this, "SU权限获取成功!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "SU权限获取成功!应用需要重启!", Toast.LENGTH_SHORT).show();
                                     ku_zy = false;
                                 } else {
                                     Toast.makeText(MainActivity.this, "SU权限获取失败!", Toast.LENGTH_SHORT).show();
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                             } catch (InterruptedException e) {
                                 throw new RuntimeException(e);
                             }
+                            finish();
                             dialog.dismiss();
                         }
                     })
@@ -107,15 +109,17 @@ public class MainActivity extends AppCompatActivity {
 
             AlertDialog dialog = builder.create();
             dialog.show();
+        }else {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    c.init("https://github.com/txlweb/H/releases/download/1/v.txt",d+"/vn.txt");
+                    c.run();
+                }
+            }).start();
         }
         d=this.getApplicationContext().getFilesDir().toString();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                c.init("https://github.com/txlweb/H/releases/download/1/v.txt",d+"/vn.txt");
-                c.run();
-            }
-        }).start();
+
 
         new Timer().schedule(new TimerTask() {
             public void run()
